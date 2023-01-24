@@ -1,0 +1,50 @@
+// Maps with sectors to divide the placement of the cells in
+class board {
+	constructor(original, rock, paper, scissor) {
+		this.original = original
+		this.rock = rock
+		this.paper = paper
+		this.scissor = scissor
+	}
+}
+class rock {
+	constructor(rPosX, rPosY) {
+		this.rPosX = rPosX
+		this.rPosY = rPosY
+	}
+}
+class paper {
+	constructor(pPosX, pPosY) {
+		this.pPosX = pPosX
+		this.pPosY = pPosY
+	}
+}
+class scissor {
+	constructor(sPosX, sPosY) {
+		this.sPosX = sPosX
+		this.sPosY = sPosY
+	}
+}
+
+rocks = [
+new rock(200,100)
+]
+papers = [
+new paper(322,342)
+]
+
+scissors = [
+new scissor(213,412)
+]
+
+function setup() {
+	createCanvas(windowWidth, windowHeight);
+	background(100);
+	index = Math.floor(random(0,rocks.length))
+	prompt = rocks[index]
+	rockPosX = prompt.rPosX
+}
+
+function draw() {
+	circle(rockPosX,200,100)
+}
