@@ -1,3 +1,16 @@
+let rPosX1,rPosY1
+let rPosX2,rPosY2
+let rPosX3,rPosY3
+let pPosX1,pPosY1;
+let pPosX2,pPosY2;
+let pPosX3,pPosY3;
+let sPosX1,sPosY1;
+let sPosX2,sPosY2;
+let sPosX3,sPosY3;
+let rLimit = 0;
+let pLimit = 0; 
+let sLimit = 0;
+
 // Maps with sectors to divide the placement of the cells in
 class board {
 	constructor(original, rock, paper, scissor) {
@@ -25,26 +38,53 @@ class scissor {
 		this.sPosY = sPosY
 	}
 }
-
+function mousePressed() {
+rLimit +=1
+pLimit +=1
+sLimit +=1
+if (rLimit <= 3) { 
+	rPosX1 = mouseX
+	rPosY1 = mouseY
+}
+if (pLimit >= 4 && pLimit <= 6) { 
+	pPosX1 = mouseX
+	pPosY1 = mouseY
+}
+if (sLimit >= 7 && sLimit <= 9) { 
+	sPosX1 = mouseX
+	sPosY1 = mouseY
+}
+}
 rocks = [
-new rock(200,100)
+new rock(rPosX1,rPosY1),
+new rock(rPosX2,rPosY2),
+new rock(rPosX3,rPosY3)
 ]
+
 papers = [
-new paper(322,342)
+new paper(pPosX1,pPosY1),
+new paper(pPosX2,pPosY2),
+new paper(pPosX3,pPosY3)
 ]
+
 
 scissors = [
-new scissor(213,412)
+new scissor(sPosX1,sPosY1),
+new scissor(sPosX2,sPosY2),
+new scissor(sPosX3,sPosY3)
 ]
 
 function setup() {
 	createCanvas(windowWidth, windowHeight);
-	background(100);
-	index = Math.floor(random(0,rocks.length))
-	prompt = rocks[index]
-	rockPosX = prompt.rPosX
+	background(0);
 }
 
 function draw() {
-	circle(rockPosX,200,100)
+	fill(100)
+	circle(rPosX1,rPosY1,50)
+	// circle(rPosX2,rPosY2,50)
+	// circle(rPosX3,rPosY3,50)
+	square(pPosX1-25,pPosY1-25,50)
+	triangle(sPosX1,sPosY1+25,sPosX1-25,sPosY1-25,sPosX1+25,sPosY1-25)
 }
+
