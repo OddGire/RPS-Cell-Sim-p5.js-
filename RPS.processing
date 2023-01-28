@@ -1,9 +1,5 @@
 
-let rLimit = 0;
-let pLimit = 0; 
-let sLimit = 0;
-let speed1 = -5;
-let speed2 = 5;
+let place = 0;
 let rPosX1,rPosY1
 let rPosX2,rPosY2
 let rPosX3,rPosY3
@@ -13,7 +9,11 @@ let pPosX3,pPosY3;
 let sPosX1,sPosY1;
 let sPosX2,sPosY2;
 let sPosX3,sPosY3;
-let rShape, pShape, sShape;
+
+function mousePressed() {
+  place +=1
+	print(place)
+}
 
 // Maps with sectors to divide the placement of the cells in
 class board {
@@ -25,128 +25,101 @@ class board {
 	}
 }
 class rock {
-	constructor(shape, rPosX, rPosY, length) {
-		this.shape = shape
+	constructor(rPosX, rPosY, rSpeed) {
 		this.rPosX = rPosX
 		this.rPosY = rPosY
-		this.length = length
+		this.rSpeed = rSpeed
+	}
+	rRandomMove() {
+	this.rPosX += random(-3,3)
+	this.rPosY += random(-3,3)
+}
+	rDisplay() {
+		if (place >= 1 && place <= 3) {
+	this.rPosX = mouseX
+	this.rPosY = mouseY
+}
+		fill(100)
+		circle(this.rPosX,this.rPosY,50)
 	}
 }
 class paper {
-	constructor(shape, pPosX, pPosY, radius) {
-		this.shape = shape
+	constructor(pPosX, pPosY, pSpeed) {
 		this.pPosX = pPosX
 		this.pPosY = pPosY
-		this.radius = radius
+		this.pSpeed = pSpeed
+	}
+	pRandomMove() {
+	this.pPosX += random(-3,3)
+	this.pPosY += random(-3,3)
+}
+	pDisplay() {
+		if(place >= 3 && place <= 6) {
+	this.pPosX = mouseX
+	this.pPosY = mouseY
+		}
+		fill(255)
+		square(this.pPosX-25,this.pPosY-25,50)
 	}
 }
 class scissor {
-	constructor(shape, sPosX, sPosY, coorX1, coorY1, coorX2, coorY2, coorX3, coorY3) {
+	constructor(sPosX, sPosY, sSpeed) {
 		this.sPosX = sPosX
 		this.sPosY = sPosY
+		this.sSpeed = sSpeed
+}
+	
+	sRandomMove() {
+	this.sPosX += random(-3,3)
+	this.sPosY += random(-3,3)
+}
+	sDisplay() {
+		if (place >= 6 && place <= 9) {
+	this.sPosX = mouseX
+	this.sPosY = mouseY
+}
+		fill("orange")
+		triangle(this.sPosX,this.sPosY+25,this.sPosX-25,this.sPosY-25,this.sPosX+25,this.sPosY-25)
 	}
 }
 
-function mouseClicked() {
-rLimit +=1
-pLimit +=1
-sLimit +=1
-
-	if (rLimit == 1) { 
-	rPosX1 = mouseX
-	rPosY1 = mouseY
-}
-if (rLimit == 2) { 
-	rPosX2 = mouseX
-	rPosY2 = mouseY
-
-}
-if (rLimit == 3) { 
-	rPosX3 = mouseX
-	rPosY3 = mouseY
-
-}
-if (pLimit == 4) { 
-	pPosX1 = mouseX
-	pPosY1 = mouseY
-}
-if (pLimit == 5) { 
-	pPosX2 = mouseX
-	pPosY2 = mouseY
-}
-if (pLimit == 6) { 
-	pPosX3 = mouseX
-	pPosY3 = mouseY
-}
-if (sLimit == 7) { 
-	sPosX1 = mouseX
-	sPosY1 = mouseY
-}
-	if (sLimit == 8) { 
-	sPosX2 = mouseX
-	sPosY2 = mouseY
-}
-	if (sLimit == 9) { 
-	sPosX3 = mouseX
-	sPosY3 = mouseY
-}
-	}
 
 
 function setup() {
 	createCanvas(windowWidth, windowHeight);
 	background(0);
-	
+	rock1 = new rock();
+	rock2 = new rock();
+	rock3 = new rock();
+  paper1 = new paper();
+	paper2 = new paper();
+	paper3 = new paper();
+  scissor1 = new scissor();
+	scissor2 = new scissor();
+	scissor3 = new scissor();
 }
+
 
 function draw() {
 	clear()
-	fill(100)
-	new rock(rShape1(rPosX1,rPosY1,50))
-	new rock(rShape2(rPosX2,rPosY2,50))
-	new rock(rShape3(rPosX3,rPosY3,50))
-	fill(255)
-	new paper(pShape1(pPosX1-25,pPosY1-25,50))
-	new paper(pShape2(pPosX2-25,pPosY2-25,50))
-	new paper(pShape3(pPosX3-25,pPosY3-25,50))
-	fill("orange")
-	new scissor(sShape1(sPosX1,sPosY1+25,sPosX1-25,sPosY1-25,sPosX1+25,sPosY1-25))
-	new scissor(sShape2(sPosX2,sPosY2+25,sPosX2-25,sPosY2-25,sPosX2+25,sPosY2-25))
-	new scissor(sShape3(sPosX3,sPosY3+25,sPosX3-25,sPosY3-25,sPosX3+25,sPosY3-25))
-	rPosX1 = rPosX1 + random(speed1, speed2)
-	rPosY1 = rPosY1 + random(speed1, speed2)
-  rPosX2 = rPosX2 + random(speed1, speed2)
-  rPosY2 = rPosY2 + random(speed1, speed2)
-  rPosX3 = rPosX3 + random(speed1, speed2)
-	rPosY3 = rPosY3 + random(speed1, speed2)
-  pPosX1 = pPosX1 + random(speed1, speed2)
-	pPosY1 = pPosY1 + random(speed1, speed2)
-  pPosX2 = pPosX2 + random(speed1, speed2)
-	pPosY2 = pPosY2 + random(speed1, speed2)
-  pPosX3 = pPosX3 + random(speed1, speed2)
-	pPosY3 = pPosY3 + random(speed1, speed2)
-  sPosX1 = sPosX1 + random(speed1, speed2) 
-	sPosY1 = sPosY1 + random(speed1, speed2)
-  sPosX2 = sPosX2 + random(speed1, speed2)
-	sPosY2 = sPosY2 + random(speed1, speed2)
-  sPosX3 = sPosX3 + random(speed1, speed2)
-	sPosY3 = sPosY3 + random(speed1, speed2)
-	checkPaperTouchScissor()
+	rock1.rRandomMove()
+	rock1.rDisplay()
+	rock2.rRandomMove()
+	rock2.rDisplay()
+	rock3.rRandomMove()
+	rock3.rDisplay()
+	paper1.pRandomMove()
+	paper1.pDisplay()
+	paper2.pRandomMove()
+	paper2.pDisplay()
+	paper3.pRandomMove()
+	paper3.pDisplay()
+	scissor1.sRandomMove()
+	scissor1.sDisplay()
+	scissor2.sRandomMove()
+	scissor2.sDisplay()
+	scissor3.sRandomMove()
+	scissor3.sDisplay()
 }
 
-function checkPaperTouchScissor() {
-if (pPosX1 == sPosX1 && pPosY1 == sPosY1 || pPosX1 == sPosX2 && pPosY2 == sPosY2 || pPosX1 == sPosX3 && pPosY1 == sPosY3 ) {
-	pPosX1 = 0
-	pPosY1 = 0
-} 
 
-if (pPosX2 == sPosX1 && pPosY2 == sPosY1 || pPosX2 == sPosX2 && pPosY2 == sPosY2 || pPosX2 == sPosX3 && pPosY2 == sPosY3 ) {
-	pPosX2 = 0
-	pPosY2 = 0
-} 
-
-if (pPosX3 == sPosX1 && pPosY3 == sPosY1 || pPosX3 == sPosX2 && pPosY3 == sPosY2 || pPosX3 == sPosX3 && pPosY3 == sPosY3 ) {
-	pPosX3 = 0
-	pPosX3 = 0
-} 
-}
