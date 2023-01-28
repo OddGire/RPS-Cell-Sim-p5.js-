@@ -1,4 +1,3 @@
-
 let place = 0;
 let rPosX1,rPosY1
 let rPosX2,rPosY2
@@ -12,7 +11,6 @@ let sPosX3,sPosY3;
 
 function mousePressed() {
   place +=1
-	print(place)
 }
 
 // Maps with sectors to divide the placement of the cells in
@@ -54,7 +52,7 @@ class paper {
 	this.pPosY += random(-3,3)
 }
 	pDisplay() {
-		if(place >= 3 && place <= 6) {
+		if(place >= 3 && place <= 5) {
 	this.pPosX = mouseX
 	this.pPosY = mouseY
 		}
@@ -84,7 +82,7 @@ class scissor {
 }
 
 
-
+// Create cells
 function setup() {
 	createCanvas(windowWidth, windowHeight);
 	background(0);
@@ -99,7 +97,7 @@ function setup() {
 	scissor3 = new scissor();
 }
 
-
+// Display the cells
 function draw() {
 	clear()
 	rock1.rRandomMove()
